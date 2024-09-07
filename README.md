@@ -19,28 +19,28 @@
 
 Suppose we have a file named `example.esh` with the following content:
 ```
-package example
+package run
+
+func run {
+  go run ./cmd/api/main.go
+}
 
 func build {
-    powershell "Write-Host 'Building on Windows'"
-    powershell "Write-Host 'Compiling code for Windows'"
-    powershell "Write-Host 'Linking libraries for Windows'"
-    powershell "Write-Host 'Creating executable for Windows'"
+  go build -o main.exe ./cmd/api/main.go
 }
 
 func test {
-    powershell "Write-Host 'Running tests on Windows'"
-    powershell "Write-Host 'Unit tests for Windows'"
-    powershell "Write-Host 'Integration tests for Windows'"
-    powershell "Write-Host 'System tests for Windows'"
+  go test ./... -v
 }
 
-func deploy {
-    powershell "Write-Host 'Deploying on Windows'"
-    powershell "Write-Host 'Preparing deployment package for Windows'"
-    powershell "Write-Host 'Uploading to server for Windows'"
-    powershell "Write-Host 'Configuring environment for Windows'"
+func itest {
+  go test ./app/database -v
 }
+
+func clean {
+  Remove-Item -Force main.exe
+}
+
 ```
 To execute this file on Windows, follow these steps:
 
@@ -55,26 +55,19 @@ Suppose we have a file named `example.esh` with the following content:
 ```
 package example
 
-func build {
-    bash "echo 'Building on Mac/Linux'"
-    bash "echo 'Compiling code for Mac/Linux'"
-    bash "echo 'Linking libraries for Mac/Linux'"
-    bash "echo 'Creating executable for Mac/Linux'"
+package run
+...
+.
+.
+.
+func clean {
+  rm -f main
 }
 
-func test {
-    bash "echo 'Running tests on Mac/Linux'"
-    bash "echo 'Unit tests for Mac/Linux'"
-    bash "echo 'Integration tests for Mac/Linux'"
-    bash "echo 'System tests for Mac/Linux'"
-}
 
-func deploy {
-    bash "echo 'Deploying on Mac/Linux'"
-    bash "echo 'Preparing deployment package for Mac/Linux'"
-    bash "echo 'Uploading to server for Mac/Linux'"
-    bash "echo 'Configuring environment for Mac/Linux'"
-}
+
+
+
 ```
 To execute this file on Mac/Linux, follow these steps:
 
