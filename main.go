@@ -123,17 +123,38 @@ func ExecuteFunction(fn *Function, outputFile *os.File, abortChan chan struct{})
 	return nil
 }
 
-func ExecutePackage(pkg *Package, outputFile *os.File) {
+func ExecutePackage(pkg *Package, outputFile *os.File, functionToRun string) {
 	log.Infof("Executing package: %s", pkg.Name)
 
 	abortChan := make(chan struct{})
 	defer close(abortChan)
 
-	for i := range pkg.Functions {
-		fn := &pkg.Functions[i]
-		if err := ExecuteFunction(fn, outputFile, abortChan); err != nil {
-			log.Errorf("Execution of function %s failed: %v", fn.Name, err)
+	if functionToRun != "" {
+		found := false
+		for i := range pkg.Functions {
+			fn := &pkg.Functions[i]
+			if fn.Name == functionToRun {
+				if err := ExecuteFunction(fn, outputFile, abortChan); err != nil {
+					log.Errorf("Execution of function %s failed: %v", fn.Name, err)
+					return
+				}
+				found = true
+				break
+			}
+		}
+		if !found {
+			log.Errorf("Function %s not found in package %s", functionToRun, pkg.Name)
 			return
+		}
+		// Don't run other functions if one function is specified
+		return
+	} else {
+		for i := range pkg.Functions {
+			fn := &pkg.Functions[i]
+			if err := ExecuteFunction(fn, outputFile, abortChan); err != nil {
+				log.Errorf("Execution of function %s failed: %v", fn.Name, err)
+				return
+			}
 		}
 	}
 
@@ -146,7 +167,7 @@ func ExecutePackage(pkg *Package, outputFile *os.File) {
 
 func main() {
 	if len(os.Args) < 2 {
-		log.Error("Usage: esh <file.esh>")
+		log.Error("Usage: esh <file.esh> [functionToRun]")
 		return
 	}
 
@@ -172,7 +193,12 @@ func main() {
 		return
 	}
 
-	ExecutePackage(pkg, outputFile)
+	functionToRun := ""
+	if len(os.Args) > 2 {
+		functionToRun = os.Args[2]
+	}
+
+	ExecutePackage(pkg, outputFile, functionToRun)
 
 	log.Info("Execution completed.")
 }
