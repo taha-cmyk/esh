@@ -83,6 +83,31 @@ To execute this file on Mac/Linux, follow these steps:
 3. Run the following command to execute the file: `./esh example.esh`
 4. The application will execute the commands in the `example.esh` file and write the output to a file named `output.log` in the current directory.
 
+**New Feature: Running a Specific Function**
+
+With the latest update, you can now run a specific function from the `example.esh` file by appending the function name to the execution command. you can think of it as Makefile now.
+
+
+**Example Usage on Windows**
+
+To run a specific function on Windows, follow these steps:
+
+1. Save the `example.esh` file in a directory of your choice.
+2. Open a Command Prompt or PowerShell in the directory where the file is saved.
+3. Run the following command to execute a specific function, replacing `<function_name>` with the actual function name (e.g., `build`, `test`, or `deploy`): `esh example.esh <function_name>`
+4. The application will execute the specified function in the `example.esh` file and write the output to a file named `output.log` in the current directory.
+
+**Example Usage on Mac/Linux**
+
+To run a specific function on Mac/Linux, follow these steps:
+
+1. Save the `example.esh` file in a directory of your choice.
+2. Open a Terminal in the directory where the file is saved.
+3. Run the following command to execute a specific function, replacing `<function_name>` with the actual function name (e.g., `build`, `test`, or `deploy`): `./esh example.esh <function_name>`
+4. The application will execute the specified function in the `example.esh` file and write the output to a file named `output.log` in the current directory.
+
+This new feature allows for more flexibility and control over the execution of specific tasks within the `example.esh` file.
+
 
 
 

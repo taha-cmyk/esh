@@ -1,0 +1,10 @@
+*.tmp
+*.log
+*.swp
+*.vs/
+*.exe
+*.out
+*.pyc/
+
+
+
