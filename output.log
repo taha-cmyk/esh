@@ -1,0 +1,12 @@
+============Building===============
+Compiling code
+Linking libraries
+Creating executable
+=============Running tests===============
+Unit tests
+Integration tests
+System tests
+=============Deploying===============
+Preparing deployment package
+Uploading to server
+Configuring environment

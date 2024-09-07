@@ -1,0 +1,22 @@
+package mypackage
+
+ func build {
+    powershell "Write-Host '============Building==============='"
+     powershell "Write-Host 'Compiling code'"
+     powershell "Write-Host 'Linking libraries'"
+     powershell "Write-Host 'Creating executable'"
+}
+
+ func test  {
+     powershell "Write-Host '=============Running tests==============='"
+     powershell "Write-Host 'Unit tests'"
+     powershell "Write-Host 'Integration tests'"
+     powershell "Write-Host 'System tests'"
+}
+
+ func deploy {
+     powershell "Write-Host '=============Deploying==============='"
+     powershell "Write-Host 'Preparing deployment package'"
+     powershell "Write-Host 'Uploading to server'"
+     powershell "Write-Host 'Configuring environment'"
+}
