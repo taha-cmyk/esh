@@ -6,7 +6,7 @@
    - On Windows: `go build -o esh.exe`
    - On Linux/Mac: `go build -o esh`
 4. Once the build is successful, you can run the application with the following command:
-   - On Windows: `esh <file.esh>`
+   - On Windows: `esh.exe <file.esh>`
    - On Linux/Mac: `./esh <file.esh>`
 5. The application will execute the commands in the .esh file and write the output to a file named `output.log` in the current directory.
 6. You can check the execution status and output in the `output.log` file.
