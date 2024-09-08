@@ -1,111 +1,156 @@
-# How to use this app in all platforms
+## Introducing `esh` - A Cross-Platform Scripting Tool
 
-1. Clone the repository to your local machine.
-2. Navigate to the directory where the repository is cloned.
-3. Run the following command to build the application:
-   - On Windows: `go build -o esh.exe`
-   - On Linux/Mac: `go build -o esh`
-4. Once the build is successful, you can run the application with the following command:
-   - On Windows: `esh.exe <file.esh>`
-   - On Linux/Mac: `./esh <file.esh>`
-5. The application will execute the commands in the .esh file and write the output to a file named `output.log` in the current directory.
-6. You can check the execution status and output in the `output.log` file.
 
-7. **Cross-Platform Compatibility**: Our `.esh` files seamlessly support both PowerShell commands on Windows and shell commands on Linux/Mac, ensuring a consistent and reliable execution experience across different operating systems.
+`esh` is a lightweight, flexible scripting tool designed for task automation across platforms. It enables developers to define functions in a `.esh` file and execute them in their development environment, similar to how Makefiles work. `esh` is versatile, allowing you to create reusable scripts that work seamlessly on both Windows and Unix-based systems (Linux/Mac).
 
-8. **Development Status**: Our application is currently in development. We appreciate any contributions or feedback that can help us improve and expand its capabilities.
+### Key Features:
+- **Cross-platform support** for both PowerShell (Windows) and shell (Linux/Mac) commands.
+- **Custom script execution**: Easily automate common tasks like building, testing, and cleaning up code.
+- **Modular functions**: Define reusable tasks and execute them either as a full script or individually.
 
-**Example Usage on Windows**
+A **binary release** will be available soon, making it even easier to get started without needing to build `esh` from source.
 
-Suppose we have a file named `example.esh` with the following content:
+---
+
+## How to Use `esh` on All Platforms
+
+### 1. Clone the Repository
+```bash
+git clone <repository-url>
 ```
-package run
 
-func run {
-  go run ./cmd/api/main.go
-}
+### 2. Build the Application
+Navigate to the cloned directory and build the `esh` executable based on your operating system:
+
+- **Windows**:
+   ```bash
+   go build -o esh.exe
+   ```
+
+- **Linux/Mac**:
+   ```bash
+   go build -o esh
+   ```
+
+### 3. Execute the Application
+To run `esh`, provide a `.esh` script file as input:
+
+- **Windows**:
+   ```bash
+   esh.exe <file.esh>
+   ```
+
+- **Linux/Mac**:
+   ```bash
+   ./esh <file.esh>
+   ```
+
+The application will execute the tasks defined in the `.esh` file and log the output to `output.log` in the current directory.
+
+---
+
+### Cross-Platform Compatibility
+
+`esh` ensures that your scripts run consistently, whether you're using PowerShell commands on Windows or shell commands on Linux/Mac. It abstracts platform differences, allowing you to focus on writing the logic for your tasks.
+
+---
+
+### Development Status
+
+We are continuously working to improve `esh` and add more functionality. Contributions and feedback are welcome to help shape the future of this tool.
+
+---
+
+### Example Usage
+
+#### Windows Example
+
+Here’s an example of a `.esh` script (`example.esh`) for a Windows environment:
+
+```esh
+package automation
 
 func build {
-  go build -o main.exe ./cmd/api/main.go
+    # Example task
+    msbuild project.sln
 }
 
-func test {
-  go test ./... -v
-}
-
-func itest {
-  go test ./app/database -v
+func deploy {
+    # Example task
+    Copy-Item -Path 'build/output' -Destination 'C:/deploy'
 }
 
 func clean {
-  Remove-Item -Force main.exe
+    # Example task
+    Remove-Item -Force output/*
+}
+```
+
+To execute the script:
+
+1. Save `example.esh` in your working directory.
+2. Open **Command Prompt** or **PowerShell** in that directory.
+3. Run:
+   ```bash
+   esh example.esh
+   ```
+
+#### Mac/Linux Example
+
+For Mac/Linux users, here’s an example `.esh` script:
+
+```esh
+package automation
+
+func build {
+    # Example task
+    make build
 }
 
-```
-To execute this file on Windows, follow these steps:
+func deploy {
+    # Example task
+    cp -R ./build/output /var/www/
+}
 
-1. Save the `example.esh` file in a directory of your choice.
-2. Open a Command Prompt or PowerShell in the directory where the file is saved.
-3. Run the following command to execute the file: `esh example.esh`
-4. The application will execute the commands in the `example.esh` file and write the output to a file named `output.log` in the current directory.
-
-**Example Usage on Mac/Linux**
-
-Suppose we have a file named `example.esh` with the following content:
-```
-package example
-
-package run
-...
-.
-.
-.
 func clean {
-  rm -f main
+    # Example task
+    rm -rf ./output/*
 }
-
-
-
-
-
 ```
-To execute this file on Mac/Linux, follow these steps:
 
-1. Save the `example.esh` file in a directory of your choice.
-2. Open a Terminal in the directory where the file is saved.
-3. Run the following command to execute the file: `./esh example.esh`
-4. The application will execute the commands in the `example.esh` file and write the output to a file named `output.log` in the current directory.
+To execute the script:
 
-**New Feature: Running a Specific Function**
+1. Save `example.esh` in your directory.
+2. Open **Terminal** in that directory.
+3. Run:
+   ```bash
+   ./esh example.esh
+   ```
 
-With the latest update, you can now run a specific function from the `example.esh` file by appending the function name to the execution command. you can think of it as Makefile now.
+---
 
+### Running Specific Functions
 
-**Example Usage on Windows**
+With `esh`, you can execute specific functions defined in the `.esh` file, allowing for more fine-grained control over the tasks you want to run.
 
-To run a specific function on Windows, follow these steps:
+#### Windows Example
 
-1. Save the `example.esh` file in a directory of your choice.
-2. Open a Command Prompt or PowerShell in the directory where the file is saved.
-3. Run the following command to execute a specific function, replacing `<function_name>` with the actual function name (e.g., `build`, `test`, or `deploy`): `esh example.esh <function_name>`
-4. The application will execute the specified function in the `example.esh` file and write the output to a file named `output.log` in the current directory.
+To execute a specific function (e.g., `build`):
 
-**Example Usage on Mac/Linux**
+1. Save `example.esh` in your directory.
+2. Open **Command Prompt** or **PowerShell**.
+3. Run:
+   ```bash
+   esh example.esh build
+   ```
 
-To run a specific function on Mac/Linux, follow these steps:
+#### Mac/Linux Example
 
-1. Save the `example.esh` file in a directory of your choice.
-2. Open a Terminal in the directory where the file is saved.
-3. Run the following command to execute a specific function, replacing `<function_name>` with the actual function name (e.g., `build`, `test`, or `deploy`): `./esh example.esh <function_name>`
-4. The application will execute the specified function in the `example.esh` file and write the output to a file named `output.log` in the current directory.
+To run a specific function on Mac/Linux:
 
-This new feature allows for more flexibility and control over the execution of specific tasks within the `example.esh` file.
-
-
-
-
-
-
-
-
-
+1. Save `example.esh` in your directory.
+2. Open **Terminal** in that directory.
+3. Run:
+   ```bash
+   ./esh example.esh build
+   ```
